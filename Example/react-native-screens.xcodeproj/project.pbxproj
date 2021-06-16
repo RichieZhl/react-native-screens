@@ -38,10 +38,10 @@
 
 /* Begin PBXFileReference section */
 		19F6BFDCD075C92AF927C97F /* Pods_react_native_screens_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_react_native_screens_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1CC43C246E0D99CF561619A1 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		1CC43C246E0D99CF561619A1 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		2291F6F9E556C298B29DB935 /* Pods-react-native-screens_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-react-native-screens_Tests.release.xcconfig"; path = "Target Support Files/Pods-react-native-screens_Tests/Pods-react-native-screens_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		43C043A98EA74FFB95BEF884 /* react-native-screens.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = "react-native-screens.podspec"; path = "../react-native-screens.podspec"; sourceTree = "<group>"; };
-		522AC6DEDBB1D4509B5DF6CA /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		43C043A98EA74FFB95BEF884 /* react-native-screens.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "react-native-screens.podspec"; path = "../react-native-screens.podspec"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		522AC6DEDBB1D4509B5DF6CA /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		58268D19158E719711CDF3FE /* Pods-react-native-screens_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-react-native-screens_Tests.debug.xcconfig"; path = "Target Support Files/Pods-react-native-screens_Tests/Pods-react-native-screens_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* react-native-screens_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "react-native-screens_Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -193,7 +193,6 @@
 				58268D19158E719711CDF3FE /* Pods-react-native-screens_Tests.debug.xcconfig */,
 				2291F6F9E556C298B29DB935 /* Pods-react-native-screens_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -258,6 +257,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -302,10 +302,20 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-react-native-screens_Example/Pods-react-native-screens_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/DoubleConversion/DoubleConversion.framework",
+				"${BUILT_PRODUCTS_DIR}/RCT-Folly/folly.framework",
+				"${BUILT_PRODUCTS_DIR}/React/React.framework",
+				"${BUILT_PRODUCTS_DIR}/Yoga/yoga.framework",
+				"${BUILT_PRODUCTS_DIR}/glog/glog.framework",
 				"${BUILT_PRODUCTS_DIR}/react-native-screens/react_native_screens.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DoubleConversion.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/folly.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/React.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/yoga.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/glog.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_screens.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
