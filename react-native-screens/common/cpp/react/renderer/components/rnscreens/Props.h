@@ -220,14 +220,14 @@ class JSI_EXPORT RNSScreenStackHeaderConfigProps final : public ViewProps {
   SharedColor backgroundColor{};
   std::string backTitle{};
   std::string backTitleFontFamily{};
-  int backTitleFontSize{0};
+  float backTitleFontSize{0};
   SharedColor color{};
   RNSScreenStackHeaderConfigDirection direction{RNSScreenStackHeaderConfigDirection::Ltr};
   bool hidden{false};
   bool hideShadow{false};
   bool largeTitle{false};
   std::string largeTitleFontFamily{};
-  int largeTitleFontSize{0};
+  float largeTitleFontSize{0};
   std::string largeTitleFontWeight{};
   SharedColor largeTitleBackgroundColor{};
   bool largeTitleHideShadow{false};
@@ -235,7 +235,7 @@ class JSI_EXPORT RNSScreenStackHeaderConfigProps final : public ViewProps {
   bool translucent{false};
   std::string title{};
   std::string titleFontFamily{};
-  int titleFontSize{0};
+  float titleFontSize{0};
   std::string titleFontWeight{};
   SharedColor titleColor{};
   bool disableBackButtonMenu{false};
