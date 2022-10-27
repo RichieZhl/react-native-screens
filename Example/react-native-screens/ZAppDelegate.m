@@ -13,6 +13,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+#if !TARGET_OS_TV
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+#endif
     return YES;
 }
 
@@ -40,7 +43,9 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+#if !TARGET_OS_TV
+    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+#endif // !TARGET_OS_TV
 }
 
 @end
