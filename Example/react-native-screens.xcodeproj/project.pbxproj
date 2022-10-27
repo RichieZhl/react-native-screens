@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		521043C2BEF4D091255DD8AC /* Pods_react_native_screens_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6BFDCD075C92AF927C97F /* Pods_react_native_screens_Tests.framework */; };
+		5939D75EA716A836FB18ED39 /* libPods-react-native-screens_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 89926D6009D1235834F92BE0 /* libPods-react-native-screens_Example.a */; };
+		5AD92A08A27F81EAD1FD9B68 /* libPods-react-native-screens_Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E3FAACAE6C77676CDD662F23 /* libPods-react-native-screens_Tests.a */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -23,7 +24,6 @@
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
-		EAB8C3A61728782ABB7F98A5 /* Pods_react_native_screens_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3CC3F11089B6497C901A294 /* Pods_react_native_screens_Example.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +37,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		19F6BFDCD075C92AF927C97F /* Pods_react_native_screens_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_react_native_screens_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CC43C246E0D99CF561619A1 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		2291F6F9E556C298B29DB935 /* Pods-react-native-screens_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-react-native-screens_Tests.release.xcconfig"; path = "Target Support Files/Pods-react-native-screens_Tests/Pods-react-native-screens_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		43C043A98EA74FFB95BEF884 /* react-native-screens.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "react-native-screens.podspec"; path = "../react-native-screens.podspec"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -64,9 +63,10 @@
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		89926D6009D1235834F92BE0 /* libPods-react-native-screens_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-react-native-screens_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89A2F6A5BB4DD625FBD4AFBC /* Pods-react-native-screens_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-react-native-screens_Example.debug.xcconfig"; path = "Target Support Files/Pods-react-native-screens_Example/Pods-react-native-screens_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		8D166B8A7E81C6050AEB6F36 /* Pods-react-native-screens_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-react-native-screens_Example.release.xcconfig"; path = "Target Support Files/Pods-react-native-screens_Example/Pods-react-native-screens_Example.release.xcconfig"; sourceTree = "<group>"; };
-		E3CC3F11089B6497C901A294 /* Pods_react_native_screens_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_react_native_screens_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E3FAACAE6C77676CDD662F23 /* libPods-react-native-screens_Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-react-native-screens_Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,7 +77,7 @@
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
-				EAB8C3A61728782ABB7F98A5 /* Pods_react_native_screens_Example.framework in Frameworks */,
+				5939D75EA716A836FB18ED39 /* libPods-react-native-screens_Example.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,7 +88,7 @@
 				6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */,
 				6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */,
-				521043C2BEF4D091255DD8AC /* Pods_react_native_screens_Tests.framework in Frameworks */,
+				5AD92A08A27F81EAD1FD9B68 /* libPods-react-native-screens_Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,8 +123,8 @@
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
 				6003F5AF195388D20070C39A /* XCTest.framework */,
-				E3CC3F11089B6497C901A294 /* Pods_react_native_screens_Example.framework */,
-				19F6BFDCD075C92AF927C97F /* Pods_react_native_screens_Tests.framework */,
+				89926D6009D1235834F92BE0 /* libPods-react-native-screens_Example.a */,
+				E3FAACAE6C77676CDD662F23 /* libPods-react-native-screens_Tests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -207,7 +207,8 @@
 				6003F586195388D20070C39A /* Sources */,
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
-				6A9FD13FD72512BA0FF9C9CA /* [CP] Embed Pods Frameworks */,
+				C16E51486D194129E9CD2434 /* [CP] Copy Pods Resources */,
+				E3BE754263A1DC2DFAC2CFAA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -295,34 +296,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6A9FD13FD72512BA0FF9C9CA /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-react-native-screens_Example/Pods-react-native-screens_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/DoubleConversion/DoubleConversion.framework",
-				"${BUILT_PRODUCTS_DIR}/RCT-Folly/folly.framework",
-				"${BUILT_PRODUCTS_DIR}/React/React.framework",
-				"${BUILT_PRODUCTS_DIR}/Yoga/yoga.framework",
-				"${BUILT_PRODUCTS_DIR}/glog/glog.framework",
-				"${BUILT_PRODUCTS_DIR}/react-native-screens/react_native_screens.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DoubleConversion.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/folly.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/React.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/yoga.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/glog.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_screens.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-react-native-screens_Example/Pods-react-native-screens_Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		735D63D45DAC02FE2F2891F9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -343,6 +316,42 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C16E51486D194129E9CD2434 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-react-native-screens_Example/Pods-react-native-screens_Example-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React/AccessibilityResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-react-native-screens_Example/Pods-react-native-screens_Example-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E3BE754263A1DC2DFAC2CFAA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-react-native-screens_Example/Pods-react-native-screens_Example-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/hermes.framework/hermes",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-react-native-screens_Example/Pods-react-native-screens_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F951596E96F4DF499AAF77D8 /* [CP] Check Pods Manifest.lock */ = {

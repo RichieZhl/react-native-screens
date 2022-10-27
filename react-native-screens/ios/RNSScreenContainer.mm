@@ -1,25 +1,12 @@
 #import "RNSScreenContainer.h"
 #import "RNSScreen.h"
 
-#import <React/RCTUIManager.h>
-#import <React/RCTUIManagerObserverCoordinator.h>
-#import <React/RCTUIManagerUtils.h>
-
-@interface RNSScreenContainerManager : RCTViewManager
-
-- (void)markUpdated:(RNSScreenContainerView *)screen;
-
-@end
-
-@interface RNSScreenContainerView () <RCTInvalidating>
-
-@property (nonatomic, retain) UIViewController *controller;
-@property (nonatomic, retain) NSMutableSet<RNSScreenView *> *activeScreens;
-@property (nonatomic, retain) NSMutableArray<RNSScreenView *> *reactSubviews;
-
-- (void)updateContainer;
-
-@end
+#ifdef RN_FABRIC_ENABLED
+#import <React/RCTConversions.h>
+#import <React/RCTFabricComponentsPlugins.h>
+#import <react/renderer/components/rnscreens/ComponentDescriptors.h>
+#import <react/renderer/components/rnscreens/Props.h>
+#endif
 
 @implementation RNScreensViewController
 
@@ -44,48 +31,59 @@
   return [self findActiveChildVC].supportedInterfaceOrientations;
 }
 
+- (UIViewController *)childViewControllerForHomeIndicatorAutoHidden
+{
+  return [self findActiveChildVC];
+}
+#endif
+
 - (UIViewController *)findActiveChildVC
 {
   for (UIViewController *childVC in self.childViewControllers) {
-    if ([childVC isKindOfClass:[RNSScreen class]] && ((RNSScreenView *)((RNSScreen *)childVC.view)).activityState == RNSActivityStateOnTop) {
+    if ([childVC isKindOfClass:[RNSScreen class]] &&
+        ((RNSScreen *)childVC).screenView.activityState == RNSActivityStateOnTop) {
       return childVC;
     }
   }
   return [[self childViewControllers] lastObject];
 }
-#endif
 
 @end
 
 @implementation RNSScreenContainerView {
-  BOOL _needUpdate;
   BOOL _invalidated;
-  __weak RNSScreenContainerManager *_manager;
+  NSMutableSet *_activeScreens;
 }
 
-- (instancetype)initWithManager:(RNSScreenContainerManager *)manager
+- (instancetype)init
 {
   if (self = [super init]) {
+#ifdef RN_FABRIC_ENABLED
+    static const auto defaultProps = std::make_shared<const facebook::react::RNSScreenContainerProps>();
+    _props = defaultProps;
+#endif
     _activeScreens = [NSMutableSet new];
     _reactSubviews = [NSMutableArray new];
-    _controller = [[RNScreensViewController alloc] init];
-    _needUpdate = NO;
+    [self setupController];
     _invalidated = NO;
-    _manager = manager;
-    [self addSubview:_controller.view];
   }
   return self;
 }
 
+- (void)setupController
+{
+  _controller = [[RNScreensViewController alloc] init];
+  [self addSubview:_controller.view];
+}
+
 - (void)markChildUpdated
 {
-  // We want 'updateContainer' to be executed on main thread after all enqueued operations in
-  // uimanager are complete. For that we collect all marked containers in manager class and enqueue
-  // operation on ui thread that should run once all the updates are completed.
-  if (!_needUpdate) {
-    _needUpdate = YES;
-    [_manager markUpdated:self];
-  }
+  // We want the attaching/detaching of children to be always made on main queue, which
+  // is currently true for `react-navigation` since this method is triggered
+  // by the changes of `Animated` value in stack's transition or adding/removing screens
+  // in all navigators
+  RCTAssertMainQueue();
+  [self updateContainer];
 }
 
 - (void)insertReactSubview:(RNSScreenView *)subview atIndex:(NSInteger)atIndex
@@ -111,7 +109,7 @@
   return _controller;
 }
 
-- (UIViewController*)findChildControllerForScreen:(RNSScreenView*)screen
+- (UIViewController *)findChildControllerForScreen:(RNSScreenView *)screen
 {
   for (UIViewController *vc in _controller.childViewControllers) {
     if (vc.view == screen) {
@@ -152,7 +150,6 @@
 
 - (void)updateContainer
 {
-  _needUpdate = NO;
   BOOL screenRemoved = NO;
   // remove screens that are no longer active
   NSMutableSet *orphaned = [NSMutableSet setWithSet:_activeScreens];
@@ -193,14 +190,20 @@
     }
   }
 
-
   for (RNSScreenView *screen in _reactSubviews) {
     if (screen.activityState == RNSActivityStateOnTop) {
       [screen notifyFinishTransitioning];
     }
   }
 
-  if ((screenRemoved || screenAdded) && _controller.presentedViewController == nil && _controller.presentingViewController == nil) {
+  if (screenRemoved || screenAdded) {
+    [self maybeDismissVC];
+  }
+}
+
+- (void)maybeDismissVC
+{
+  if (_controller.presentedViewController == nil && _controller.presentingViewController == nil) {
     // if user has reachability enabled (one hand use) and the window is slided down the below
     // method will force it to slide back up as it is expected to happen with UINavController when
     // we push or pop views.
@@ -226,6 +229,87 @@
   }
 }
 
+- (void)layoutSubviews
+{
+  [super layoutSubviews];
+  _controller.view.frame = self.bounds;
+  for (RNSScreenView *subview in _reactSubviews) {
+#ifdef RN_FABRIC_ENABLED
+    facebook::react::LayoutMetrics screenLayoutMetrics = subview.newLayoutMetrics;
+    screenLayoutMetrics.frame = RCTRectFromCGRect(CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height));
+    [subview updateLayoutMetrics:screenLayoutMetrics oldLayoutMetrics:subview.oldLayoutMetrics];
+#else
+    [subview reactSetFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
+#endif
+    [subview setNeedsLayout];
+  }
+}
+
+#pragma mark-- Fabric specific
+#ifdef RN_FABRIC_ENABLED
+
+- (void)mountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
+{
+  if (![childComponentView isKindOfClass:[RNSScreenView class]]) {
+    RCTLogError(@"ScreenContainer only accepts children of type Screen");
+    return;
+  }
+
+  RNSScreenView *screenView = (RNSScreenView *)childComponentView;
+
+  RCTAssert(
+      childComponentView.reactSuperview == nil,
+      @"Attempt to mount already mounted component view. (parent: %@, child: %@, index: %@, existing parent: %@)",
+      self,
+      childComponentView,
+      @(index),
+      @([childComponentView.superview tag]));
+
+  [_reactSubviews insertObject:screenView atIndex:index];
+  screenView.reactSuperview = self;
+  facebook::react::LayoutMetrics screenLayoutMetrics = screenView.newLayoutMetrics;
+  screenLayoutMetrics.frame = RCTRectFromCGRect(CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height));
+  [screenView updateLayoutMetrics:screenLayoutMetrics oldLayoutMetrics:screenView.oldLayoutMetrics];
+  [self markChildUpdated];
+}
+
+- (void)unmountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
+{
+  RCTAssert(
+      childComponentView.reactSuperview == self,
+      @"Attempt to unmount a view which is mounted inside different view. (parent: %@, child: %@, index: %@)",
+      self,
+      childComponentView,
+      @(index));
+  RCTAssert(
+      (_reactSubviews.count > index) && [_reactSubviews objectAtIndex:index] == childComponentView,
+      @"Attempt to unmount a view which has a different index. (parent: %@, child: %@, index: %@, actual index: %@, tag at index: %@)",
+      self,
+      childComponentView,
+      @(index),
+      @([_reactSubviews indexOfObject:childComponentView]),
+      @([[_reactSubviews objectAtIndex:index] tag]));
+  ((RNSScreenView *)childComponentView).reactSuperview = nil;
+  [_reactSubviews removeObject:childComponentView];
+  [childComponentView removeFromSuperview];
+  [self markChildUpdated];
+}
+
++ (facebook::react::ComponentDescriptorProvider)componentDescriptorProvider
+{
+  return facebook::react::concreteComponentDescriptorProvider<facebook::react::RNSScreenContainerComponentDescriptor>();
+}
+
+- (void)prepareForRecycle
+{
+  [super prepareForRecycle];
+  [_controller willMoveToParentViewController:nil];
+  [_controller removeFromParentViewController];
+}
+
+#pragma mark-- Paper specific
+#else
+
 - (void)invalidate
 {
   _invalidated = YES;
@@ -233,51 +317,24 @@
   [_controller removeFromParentViewController];
 }
 
-- (void)layoutSubviews
-{
-  [super layoutSubviews];
-  _controller.view.frame = self.bounds;
-  for (RNSScreenView *subview in _reactSubviews) {
-    [subview reactSetFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
-    [subview setNeedsLayout];
-  }
-}
+#endif
 
 @end
 
-
-@implementation RNSScreenContainerManager {
-  NSMutableArray<RNSScreenContainerView *> *_markedContainers;
+#ifdef RN_FABRIC_ENABLED
+Class<RCTComponentViewProtocol> RNSScreenContainerCls(void)
+{
+  return RNSScreenContainerView.class;
 }
+#endif
+
+@implementation RNSScreenContainerManager
 
 RCT_EXPORT_MODULE()
 
 - (UIView *)view
 {
-  if (!_markedContainers) {
-    _markedContainers = [NSMutableArray new];
-  }
-  return [[RNSScreenContainerView alloc] initWithManager:self];
-}
-
-- (void)markUpdated:(RNSScreenContainerView *)screen
-{
-  [_markedContainers addObject:screen];
-  if ([_markedContainers count] == 1) {
-    // we enqueue updates to be run on the main queue in order to make sure that
-    // all these updates (new screens attached etc) are executed in one batch.
-    // We call it asynchronously because the events being fired when swiping the screen
-    // resolve in calling this method, and inside it, the same type of event
-    // can be fired when calling e.g. `notifyFinishTransitioning` leading to a deadlock.
-    // See https://github.com/software-mansion/react-native-screens/issues/726#issuecomment-757879605
-    // for more information.
-    dispatch_async(dispatch_get_main_queue(), ^{
-      for (RNSScreenContainerView *container in self->_markedContainers) {
-        [container updateContainer];
-      }
-      [self->_markedContainers removeAllObjects];
-    });
-  }
+  return [[RNSScreenContainerView alloc] init];
 }
 
 @end
