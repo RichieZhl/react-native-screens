@@ -578,9 +578,11 @@
         break;
       }
       case RNSScreenStackHeaderSubviewTypeBackButton: {
-#ifdef RN_FABRIC_ENABLED
-        RCTLogWarn(@"Back button subview is not yet Fabric compatible in react-native-screens");
-#endif
+        UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:subview];
+        navitem.leftBarButtonItem = buttonItem;
+// #ifdef RN_FABRIC_ENABLED
+//         RCTLogWarn(@"Back button subview is not yet Fabric compatible in react-native-screens");
+// #endif
         break;
       }
     }
