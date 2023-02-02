@@ -1,6 +1,6 @@
 #pragma once
 
-#include <react/renderer/graphics/platform/ios/GFloat.h>
+#include <react/renderer/graphics/Float.h>
 #include <react/renderer/graphics/Geometry.h>
 #include <react/renderer/graphics/conversions.h>
 
